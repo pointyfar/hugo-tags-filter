@@ -7,7 +7,7 @@ Not tested on sites with a very large number of posts.
 
 ## Where 
 
-See Demo: 
+See Demo: [https://pointy.netlify.com/filterdemo/](https://pointy.netlify.com/filterdemo/)
 
 ## How 
 
