@@ -1,0 +1,19 @@
+{
+  "name": "hugo-tags-filter",
+  "version": "0.1.0",
+  "description": "Hugo Tags Filter",
+  "main": "./dist/HugoTagsFilter.dist.js",
+  "author": "PointyFar",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "^8.0.0",
+    "browserify": "^16.2.0",
+    "gulp": "gulpjs/gulp#4.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
+  }
+}
