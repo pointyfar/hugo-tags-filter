@@ -1,4 +1,5 @@
 ## What
+
 Filter Hugo posts using multiple tags.
 
 ## Warning 
@@ -190,3 +191,19 @@ Generate the list of items to filter.
 #### Step 6
 
 Save and run `hugo server` if not already running. Navigate to `localhost:1313/filterdemo/`
+
+
+## TODO: 
+
+- Improve documentation 
+
+- Test with taxonomies
+
+- Add function to update tags counts 
+
+- Test with paginations involved
+
+- Possibly add option to choose AND vs OR 
+
+- Add deselect all option 
+
