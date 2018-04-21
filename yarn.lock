@@ -1745,10 +1745,6 @@ gulp-uglify@^3.0.0:
     uglify-js "^3.0.5"
     vinyl-sourcemaps-apply "^0.2.0"
 
-gulp-version-filename@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/gulp-version-filename/-/gulp-version-filename-1.0.2.tgz#09a6695d9cc9fdd9963c42c75a80f54270bac047"
-
 gulp@gulpjs/gulp#4.0:
   version "4.0.0-alpha.3"
   resolved "https://codeload.github.com/gulpjs/gulp/tar.gz/71c094a51c7972d26f557899ddecab0210ef3776"
