@@ -8,30 +8,19 @@ Not tested on sites with a very large number of posts.
 
 ## Where 
 
-See Demo: [https://pointy.netlify.com/filterdemo/](https://pointy.netlify.com/filterdemo/)
+See Demo, with tags and sections filters: [https://pointy.netlify.com/filterdemo/](https://pointy.netlify.com/filterdemo/)
+
+Demo with tags only, and using Masonry: [https://pointy.netlify.com/tags/](https://pointy.netlify.com/tags/)
 
 ## How 
 
-### tl;dr version
-
-#### Assumptions
-
-You have mainSections configured in your config.x file:
-```toml
-[params]
-mainSections = ["post", "another-section"]
-```
-
-You are using `baseof.html`
-
-
 #### Step 1
+
+Create an empty content file.
 
 ```bash
 hugo new filterdemo.md
 ```
-
-Don't forget to set `draft: false`.
 
 Set the layout to use in the frontmatter of `filterdemo.md`:
 
@@ -39,25 +28,7 @@ Set the layout to use in the frontmatter of `filterdemo.md`:
 layout: filterdemo
 ```
 
-#### Step 2
-
-Copy `filterdemo.html` to `layouts/page/`
-
-#### Step 3
-
-Copy `hugo-tags-filter.dist.js` to `static/js/`
-
-#### Step 4
-```bash
-hugo server
-```
-
-Navigate to localhost:1313/filterdemo/
-
-
-### Extended version 
-
-#### Step 1 as above
+Don't forget to set `draft: false`.
 
 #### Step 2
 
@@ -65,7 +36,7 @@ Set up html layout and the js config:
 
 - Create new layout `layouts/page/filterdemo.html`.
 
-- Initialize by passing an optional config object:
+- Initialize HTF, passing an optional config object:
 
 ```js
 var htfConfig = {
@@ -160,7 +131,7 @@ Add a 'Select All x' button as well.
 
 ```html
 
-<button id="tfSelectAllSections" onclick="TFHshowAll('section')">
+<button id="tfSelectAllSections" onclick="htf.showAll('section')">
   All Sections
 </button>
 <button id="tfSelectAllTags" onclick="htf.showAll('tag')">
