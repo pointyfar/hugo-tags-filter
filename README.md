@@ -8,7 +8,7 @@ Not tested on sites with a very large number of posts.
 
 ## Where 
 
-See Demo, with tags and sections filters: [https://pointy.netlify.com/filterdemo/](https://pointy.netlify.com/filterdemo/)
+See Demo, with tags, authors and sections as filters: [https://pointy.netlify.com/filter/](https://pointy.netlify.com/filter/)
 
 Demo with tags only, and using Masonry: [https://pointy.netlify.com/tags/](https://pointy.netlify.com/tags/)
 

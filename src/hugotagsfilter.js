@@ -1,6 +1,6 @@
 /**
  * @name 'Hugo Tags Filter'
- * @version 1.0.0
+ * @version 1.0.1
  * @license MIT  
  * @author PointyFar 
  */ 
@@ -21,13 +21,14 @@ class HugoTagsFilter {
         buttonClass: 'tfs-button',
         allSelector: '#tfSelectAllSections',
         attrName: 'data-section'
-      },
+      }
     ]
     
     this.FILTERS = (config && config.filters) ? config.filters : defaultFilters;
     this.showItemClass = (config && config.showItemClass) ? config.showItemClass : "tf-show";
     this.activeButtonClass = (config && config.activeButtonClass) ? config.activeButtonClass : "active";
     this.filterItemClass = (config && config.filterItemClass) ? config.filterItemClass : "tf-filter-item";
+    this.counterSelector = (config && config.counterSelector) ? config.counterSelector : "selectedItemCount";
     
     this.filterItems = document.getElementsByClassName(this.filterItemClass);
     this.selectedItemCount = 0;
@@ -117,8 +118,8 @@ class HugoTagsFilter {
         }
       }
     }
-    if(document.getElementById("selectedItemCount")) {
-      document.getElementById("selectedItemCount").textContent=`${this.selectedItemCount}`;
+    if(document.getElementById(this.counterSelector)) {
+      document.getElementById(this.counterSelector).textContent=`${this.selectedItemCount}`;
     }
     
   }
