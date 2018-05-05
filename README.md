@@ -18,13 +18,10 @@ Documentation here: [https://pointy.netlify.com/filter/](https://pointy.netlify.
 
 ## TODO: 
 
-- Improve documentation
-
-[x] Add function to update tags counts 
+- [ ] Improve documentation
+- [x] Add function to update tags counts 
   - Scenario: Author1 has only 1 post, tagged `red`. Selecting Author2 filter should show tag `red` as 0 or disabled.
-
-- Possibly add option to choose AND vs OR 
+- [ ] Possibly add option to choose AND vs OR 
   - Currently (OR within a filter set) + (AND between filter sets) 
-
-- Add deselect all option 
+- [ ] Add deselect all option 
 
