@@ -2,7 +2,6 @@
   "name": "hugo-tags-filter",
   "version": "1.2.1",
   "description": "Hugo Tags Filter",
-  "main": "./dist/HugoTagsFilter.dist.js",
   "author": "PointyFar",
   "license": "MIT",
   "devDependencies": {
