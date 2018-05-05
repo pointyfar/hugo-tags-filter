@@ -93,7 +93,6 @@ class HugoTagsFilter {
       }
     }
 
-    console.log(fvc)
     return fvc;
   }
   
@@ -225,13 +224,6 @@ class HugoTagsFilter {
     
   }
   
-  
-  /**  
-   * checkDisabledButtons - For each tag/section/whatever: 
-   *    a. count items with tag 
-   *    b. count items with tag that are hidden 
-   *    if a == b : mark button for that tag as disabled;
-   */   
   checkButtonCounts(isInitial){
     this.filterValues = this.initFilterCount(this.filterValues, isInitial);
     this.populateCounters(this.filterValues);
@@ -246,7 +238,9 @@ class HugoTagsFilter {
     /* Returns TRUE if list is empty or attribute is in list */   
     if (list.length > 0) {
       for(var v = 0; v < list.length; v++){
-        if(dataAttr.indexOf(list[v]) >=0 ) {
+        var arr = dataAttr.split(" ")
+                          .filter(function(el){return el.length > 0});
+        if(arr.indexOf(list[v]) >=0 ) {
           return true
         }
       }
