@@ -20,7 +20,7 @@ Documentation here: [https://pointy.netlify.com/filter/](https://pointy.netlify.
 
 - Improve documentation
 
-- Add function to update tags counts
+[x] Add function to update tags counts 
   - Scenario: Author1 has only 1 post, tagged `red`. Selecting Author2 filter should show tag `red` as 0 or disabled.
 
 - Possibly add option to choose AND vs OR 
