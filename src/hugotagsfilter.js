@@ -1,6 +1,6 @@
 /**
  * @name 'Hugo Tags Filter'
- * @version 1.0.1
+ * @version 1.2.2
  * @license MIT  
  * @author PointyFar 
  */ 
@@ -13,16 +13,14 @@ class HugoTagsFilter {
         prefix: 'tft-',
         buttonClass: 'tft-button',
         allSelector: '#tfSelectAllTags',
-        attrName: 'data-tags',
-        countPrefix: 'ctft-'
+        attrName: 'data-tags'
       },
       {
         name: 'section',
         prefix: 'tfs-',
         buttonClass: 'tfs-button',
         allSelector: '#tfSelectAllSections',
-        attrName: 'data-section',
-        countPrefix: 'ctft-'
+        attrName: 'data-section'
       }
     ]
     
