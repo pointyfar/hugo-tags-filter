@@ -1,0 +1,13 @@
+{{ define "main" }}
+{{$section := .Section}}
+<h1>{{.Section}}</h1>
+  {{ range (.Site.RegularPages.GroupByDate "2006").Reverse }}
+    <h2>{{ .Key }}</h2>
+    <ol>
+    {{ range (where .Pages "Type" $section).Reverse }}
+      <li><a href="{{.Permalink}}">{{.Title}}</a></li>
+    {{ end }}
+    </ol>
+  {{ end }}
+
+{{ end }}

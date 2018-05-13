@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html{{ with .Site.LanguageCode }} lang="{{ . }}"{{ end }}>
+
+<head>
+  
+  <link rel="stylesheet" href="{{ "/css/style.css" | relURL }}" />
+  <link rel="stylesheet" href="{{ "css/chroma.css" | relURL }}" />
+  <link rel="stylesheet" href="{{ "vendor/bare/css/bare.min.css" | relURL }}" />
+  {{ .Hugo.Generator }}
+  
+</head>
+
+<body>

@@ -1,0 +1,13 @@
+baseURL = "http://example.org/"
+languageCode = "en-us"
+title = "Hugo Tags Filter Demo"
+
+pygmentsUseClassic = false
+pygmentsCodeFences = true
+pygmentsCodeFencesGuessSyntax = true
+pygmentsUseClasses = true
+
+[params]
+  copyright = "Copyright © 2018"
+  author = "Pointy Far"
+  mainSections = ["wonderland", "lorem", "looking-glass", "grimm"]

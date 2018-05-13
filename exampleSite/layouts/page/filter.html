@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html{{ with .Site.LanguageCode }} lang="{{ . }}"{{ end }}>
+
+<head>
+  <link rel="stylesheet" href="{{ "css/chroma.css" | relURL }}" />
+  
+  <link rel="stylesheet" href="{{ "vendor/bare/css/bare.min.css" | relURL }}" />
+  <style>
+  /*** Important ***/
+  .tf-filter-item {
+    display: none;
+  }
+
+  button.active {
+    background-color: #ddd;
+  }
+  
+  button.disable-button {
+    border-style: dashed;
+  }
+  
+  .show-item {
+    display: inline-block;
+  }
+
+  /*** Aesthetics ***/
+  section {
+    margin-top: 18px !important;
+  }
+  .tf-items-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .tf-item {
+    width: 250px;
+    margin: 8px;
+    background: #fff;
+    padding: 2rem;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .2);
+    border-radius: 2px;
+    margin-bottom: 2rem
+  }
+
+  .chroma {
+    overflow-x: auto;
+    padding: 4px;
+    
+  }
+
+  .panel {
+      padding: 0 18px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+  }
+  
+  .acc:after {
+    content: '\02795';
+    color: #fff;
+    margin-left: 5px;
+  }
+
+  .acc.active:after {
+      content: "\2796";
+  }
+  
+  .navbtn {
+    padding: 0.5rem!important;
+    font-size: 90%!important;
+    
+  }
+  .nava {
+    text-transform: none;
+    font-size: 90%!important;
+  }
+  </style>
+  
+  {{ .Hugo.Generator }}
+  
+</head>
+
+<body>
+{{ partial "filter-nav" . }}
+<section>
+
+{{ with .Resources.GetMatch "intro.md" }}
+{{ partial "accordion.html" (dict "panelLabel" "Initial Steps" "panelContent" .Content )}}
+{{ end }}
+
+{{ with .Resources.GetMatch "js.md" }}
+{{ partial "accordion.html" (dict "panelLabel" "JS Config and Initialisation" "panelContent" .Content )}}
+{{ end }}
+
+{{ with .Resources.GetMatch "styles.md" }}
+{{ partial "accordion.html" (dict "panelLabel" "Styles Used" "panelContent" .Content )}}
+{{ end }}
+
+
+{{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+{{ $sections := .Site.Params.mainSections }}
+
+{{ $.Scratch.Set "authors" (slice ) }}
+{{ $.Scratch.Set "noAuthors" 0 }}
+
+{{ range where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+  {{ with .Params.author }}
+    {{ if eq ( printf "%T" . ) "string"  }}
+      {{ if ( not ( in ($.Scratch.Get "authors") . ) ) }}
+        {{ $.Scratch.Add "authors" . }}
+      {{ end }}
+    {{ else if ( printf "%T" . ) "[]string" }}
+      {{ range . }}
+        {{ if ( not ( in ($.Scratch.Get "authors") . ) ) }}
+          {{ $.Scratch.Add "authors" . }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ else }}
+    {{ $.Scratch.Add "noAuthors" 1 }}
+  {{ end }}
+{{ end }}
+
+
+{{ $tags := $.Site.Taxonomies.tags.ByCount }}
+
+{{ $.Scratch.Set "untagged" 0 }}
+{{ range $pages }}
+  {{ with .Params.tags }}{{ else }}{{ $.Scratch.Add "untagged" 1 }}{{ end }}
+{{ end }}
+
+{{ with .Resources.GetMatch "ranges.md" }}
+{{ partial "accordion.html" (dict "panelLabel" "Assemble Filter Sets" "panelContent" .Content )}}
+{{ end }}
+
+{{ with .Resources.GetMatch "buttons.md" }}
+{{ partial "accordion.html" (dict "panelLabel" "Buttons" "panelContent" .Content )}}
+{{ end }}
+
+
+<hr >
+
+<div class="tf-wrapper">
+  <div class="tf-buttons-container flex-grow">
+    <h4>Sections</h4>
+    <button xx id="selectAllSections" onclick="htf.showAll('section')">
+      All Sections
+    </button>
+    {{ range $sections }}
+      <button xx class="sect-button" id="sect-{{ . | urlize }}" onclick="htf.checkFilter('{{ . | urlize }}', 'sect-')">
+        {{ . | title }} <span id="ssect-{{ . | urlize }}"> -count-</span> | <span id="csect-{{ . | urlize }}"> -count-</span>
+      </button>
+    {{ end }}
+    
+    {{ with .Resources.GetMatch "section.md" }}
+    {{ partial "accordion.html" (dict "panelLabel" "Section Buttons" "panelContent" .Content )}}
+    {{ end }}
+    
+    
+    <hr>
+    
+    <h4>Authors</h4>
+    <button xx id="selectAllAuthors" onclick="htf.showAll('authors')">
+      All Authors
+    </button>
+    {{ range $.Scratch.Get "authors" }}
+      <button xx class="auth-button" id="auth-{{ . | replaceRE "[.]" "_" | urlize }}" onclick="htf.checkFilter('{{ . | replaceRE "[.]" "_" | urlize }}', 'auth-')">
+        {{ . }} <span id="sauth-{{ . | replaceRE "[.]" "_" | urlize }}"> -count-</span> | <span id="cauth-{{ . | replaceRE "[.]" "_" | urlize }}"> -count-</span>
+      </button>
+    {{ end }}
+    {{ if gt ( $.Scratch.Get "noAuthors") 0 }}
+    <button xx class="auth-button" id="auth-no-author" onclick="htf.checkFilter('no-author', 'auth-')">
+      No Author <span id="sauth-no-author"> -count-</span> | <span id="cauth-no-author"> -count-</span>
+    </button>
+    {{ end }}
+    
+    {{ with .Resources.GetMatch "authors.md" }}
+    {{ partial "accordion.html" (dict "panelLabel" "Author Buttons" "panelContent" .Content )}}
+    {{ end }}
+    
+    
+    <hr>
+    
+    <h4>Tags</h4>
+    <button xx class="" id="selectAllTags" onclick="htf.showAll('tags')">
+      All Tags
+    </button>
+    {{ range $tags }}
+      {{ if .Term }}
+        <button xx class="tag-button" id="tag-{{ .Term | replaceRE "[.]" "_" | urlize }}" onclick="htf.checkFilter('{{ .Term | replaceRE "[.]" "_" | urlize }}', 'tag-')">
+          <span>{{.Term | humanize | title }}</span>
+          <span id="stags-{{ .Term | urlize }}"> -count-</span> | <span id="ctags-{{ .Term | urlize }}"> -count-</span>
+        </button>
+      {{ end }}
+    {{ end }}
+    {{ if gt ( $.Scratch.Get "untagged") 0 }}
+    <button xx class="tag-button" id="tag-tfuntagged" onclick="htf.checkFilter('tfuntagged', 'tag-')">
+      Untagged <span id="stags-tfuntagged"> -count-</span> | <span id="ctags-tfuntagged"> -count-</span>
+    </button>
+    {{ end }}
+    
+    {{ with .Resources.GetMatch "tags.md" }}
+    {{ partial "accordion.html" (dict "panelLabel" "Tag Buttons" "panelContent" .Content )}}
+    {{ end }}
+    
+    
+    <hr >
+  </div>
+      
+    
+  {{ with .Resources.GetMatch "items.md" }}
+  {{ partial "accordion.html" (dict "panelLabel" "Assemble Items" "panelContent" .Content )}}
+  {{ end }}
+  
+  <hr >
+  <div><h2><span id="selectedItemCount"></span> Items</h2></div>
+  <div class="tf-items-container">      
+  {{ range $pages.ByPublishDate.Reverse }}
+    <div  class="tf-filter-item tf-item" 
+          data-tags="{{ with .Params.tags }}{{ range . }}{{ . | replaceRE "[.]" "_" | urlize }} {{ end }}{{ else }} tfuntagged{{ end }}"
+          data-section="{{ .Section }}"
+          
+          data-authors="{{ with .Params.author }}{{ if eq ( printf "%T" . ) "string" }}{{ . | replaceRE "[.]" "_" | urlize }}{{ else if eq ( printf "%T" . ) "[]string" }}{{ range . }}{{ . | replaceRE "[.]" "_" | urlize }} {{end}}{{end}}{{else}}no-author{{end}}"
+          
+          >
+      <h6>{{.Section}}</h6>
+      <h5>{{ with .Params.author }}{{ if eq ( printf "%T" . ) "string" }}{{.|humanize|title}}{{ else if eq ( printf "%T" . ) "[]string" }}{{ range . }}{{.|humanize|title}} {{end}}{{end}}{{else}}No Author{{end}}</h5>
+      
+      <h4><a href="{{ .RelPermalink }}">{{ .Title }}</a></h4>
+      
+      <div>{{ with .Params.tags }}{{ range . }}<tag>{{ . | humanize | title }}</tag> {{ end }}{{ else }}<tag>untagged</tag>{{ end }}</div>
+      
+    </div>
+  {{ end }}
+  </div>
+
+</div>
+
+<script src="{{ "vendor/htf/hugotagsfilter-1.2.2.min.js" | relURL}}"></script>
+<!--<script src="{{ "hugotagsfilter.js" | relURL}}"></script>-->
+<script>
+var htfConfig = {
+  filters: [
+    {
+      name: 'tags',
+      prefix: 'tag-',
+      buttonClass: 'tag-button',
+      allSelector: '#selectAllTags',
+      attrName: 'data-tags',
+      selectedPrefix: 'stags-',
+      countPrefix: 'ctags-'
+    },
+    {
+      name: 'section',
+      prefix: 'sect-',
+      buttonClass: 'sect-button',
+      allSelector: '#selectAllSections',
+      attrName: 'data-section',
+      selectedPrefix: 'ssect-',
+      countPrefix: 'csect-'
+      
+    },
+    {
+      name: 'authors',
+      prefix: 'auth-',
+      buttonClass: 'auth-button',
+      allSelector: '#selectAllAuthors',
+      attrName: 'data-authors',
+      selectedPrefix: 'sauth-',
+      countPrefix: 'cauth-'
+      
+    }
+  ],
+  showItemClass: "show-item",
+  filterItemClass: "tf-filter-item",
+  activeButtonClass: "active",
+  counterSelector: "selectedItemCount",
+  populateCount: true,
+  setDisabledButtonClass: "disable-button"
+} 
+var htf = new HugoTagsFilter(htfConfig);
+</script>
+
+<script>
+function toggleAcc(el) {
+  el.classList.toggle("active")
+  var panel = el.nextElementSibling;
+  if (panel.style.maxHeight){
+    panel.style.maxHeight = null;
+  } else {
+    panel.style.maxHeight = panel.scrollHeight + "px";
+  } 
+}
+</script>
+</section>
+
+</body>
+
+
+</html>
