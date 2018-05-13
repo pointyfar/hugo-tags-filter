@@ -12,9 +12,24 @@ See Demo, with tags, authors and sections as filters: [https://pointy.netlify.co
 
 Demo with tags only, and using Masonry: [https://pointy.netlify.com/tags/](https://pointy.netlify.com/tags/)
 
-## How 
+## How to use
 
 Documentation here: [https://pointy.netlify.com/filter/](https://pointy.netlify.com/filter/)
+
+### Demo Hugo Site
+
+This repo comes with a demo Hugo site at `exampleSite`. The relevant code is in `exampleSite/layouts/page/filter.html`
+
+```
+git clone https://github.com/pointyfar/hugo-tags-filter.git
+cd hugo-tags-filter/exampleSite
+hugo server 
+```
+
+Navigate to 
+
+- `localhost:1313/filter/` for demo 
+- `localhost:1313/filterdoc/` for demo + documentation
 
 ## TODO: 
 
