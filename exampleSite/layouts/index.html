@@ -1,8 +1,10 @@
 {{ define "main" }}
 
 <a btn full primary href="/filter">Filter Demo</a>
+<a btn full primary href="/filterdoc">Filter Demo + Documentation</a>
 
 <!-- Uncomment below to generate full list of all posts in mainSections -->
+
 <!--
 {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
 {{ $paginator := .Paginate $pages  }}

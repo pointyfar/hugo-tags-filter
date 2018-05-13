@@ -85,6 +85,19 @@
 {{ partial "filter-nav" . }}
 <section>
 
+{{ with .Resources.GetMatch "intro.md" }}
+{{ partial "accordion.html" (dict "panelLabel" "Initial Steps" "panelContent" .Content )}}
+{{ end }}
+
+{{ with .Resources.GetMatch "js.md" }}
+{{ partial "accordion.html" (dict "panelLabel" "JS Config and Initialisation" "panelContent" .Content )}}
+{{ end }}
+
+{{ with .Resources.GetMatch "styles.md" }}
+{{ partial "accordion.html" (dict "panelLabel" "Styles Used" "panelContent" .Content )}}
+{{ end }}
+
+
 {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
 {{ $sections := .Site.Params.mainSections }}
 
@@ -117,6 +130,15 @@
   {{ with .Params.tags }}{{ else }}{{ $.Scratch.Add "untagged" 1 }}{{ end }}
 {{ end }}
 
+{{ with .Resources.GetMatch "ranges.md" }}
+{{ partial "accordion.html" (dict "panelLabel" "Assemble Filter Sets" "panelContent" .Content )}}
+{{ end }}
+
+{{ with .Resources.GetMatch "buttons.md" }}
+{{ partial "accordion.html" (dict "panelLabel" "Buttons" "panelContent" .Content )}}
+{{ end }}
+
+
 <hr >
 
 <div class="tf-wrapper">
@@ -130,6 +152,11 @@
         {{ . | title }} <span id="ssect-{{ . | urlize }}"> -count-</span> | <span id="csect-{{ . | urlize }}"> -count-</span>
       </button>
     {{ end }}
+    
+    {{ with .Resources.GetMatch "section.md" }}
+    {{ partial "accordion.html" (dict "panelLabel" "Section Buttons" "panelContent" .Content )}}
+    {{ end }}
+    
     
     <hr>
     
@@ -146,6 +173,10 @@
     <button xx class="auth-button" id="auth-no-author" onclick="htf.checkFilter('no-author', 'auth-')">
       No Author <span id="sauth-no-author"> -count-</span> | <span id="cauth-no-author"> -count-</span>
     </button>
+    {{ end }}
+    
+    {{ with .Resources.GetMatch "authors.md" }}
+    {{ partial "accordion.html" (dict "panelLabel" "Author Buttons" "panelContent" .Content )}}
     {{ end }}
     
     
@@ -169,10 +200,19 @@
     </button>
     {{ end }}
     
+    {{ with .Resources.GetMatch "tags.md" }}
+    {{ partial "accordion.html" (dict "panelLabel" "Tag Buttons" "panelContent" .Content )}}
+    {{ end }}
+    
+    
     <hr >
   </div>
       
     
+  {{ with .Resources.GetMatch "items.md" }}
+  {{ partial "accordion.html" (dict "panelLabel" "Assemble Items" "panelContent" .Content )}}
+  {{ end }}
+  
   <hr >
   <div><h2><span id="selectedItemCount"></span> Items</h2></div>
   <div class="tf-items-container">      
