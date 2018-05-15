@@ -14,7 +14,7 @@ For each filter set you want to use, generate buttons (or your preferred element
   - all items with that filter 
   - all selected items with that filter 
   
-  you also need to add a containing element inside the button (see examples)
+  you also need to add an element inside the button to contain its count (see examples)
   
   ```go-html-template
   <span id="ssect-{{ . | urlize }}"> -count-</span>
