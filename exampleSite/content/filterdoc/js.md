@@ -1,3 +1,11 @@
+Grab `hugotagsfilter-...js` and put it somewhere in your `static` directory. 
+
+In your `filterdemo.html` file:
+
+```html
+<script src="{{ "vendor/htf/hugotagsfilter-...js" | relURL}}"></script>
+```
+
 Initialize HTF, passing an optional config object. This demo uses the following:
 
 ```js
