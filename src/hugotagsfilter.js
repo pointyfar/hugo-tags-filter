@@ -191,6 +191,7 @@ class HugoTagsFilter {
             this.delClassIfPresent(iBtns[j], this.activeButtonClass)
           }
           this.addClassIfMissing(document.querySelector(this.FILTERS[i]['allSelector']), this.activeButtonClass)
+          this.FILTERS[i]['selected'] = [];
         }
       } 
     }
