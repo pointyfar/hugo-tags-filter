@@ -159,15 +159,16 @@ class HugoTagsFilter {
     
     for ( var i = 0; i < this.FILTERS.length; i++ ) {
       if ( this.FILTERS[i]['prefix'] === tagType ) {
-        if ( this.FILTERS[i]['selected'].indexOf(tag) >= 0 ) { 
+        var index = this.FILTERS[i]['selected'].indexOf(tag);
+        if ( index >= 0 ) {
           /* already selected, deselect tag */
-          this.FILTERS[i]['selected'].splice(tag,1);
+          this.FILTERS[i]['selected'].splice(index, 1);
           this.delClassIfPresent(selectedBtn, this.activeButtonClass);
-        } else { 
+        } else {
           /* add tag to selected list */
           this.FILTERS[i]['selected'].push(tag);
           this.addClassIfMissing(selectedBtn, this.activeButtonClass);
-        } 
+        }
         this.delClassIfPresent(document.querySelector(this.FILTERS[i]['allSelector']), this.activeButtonClass);
         this.showCheck(this.FILTERS[i]['name']);
       }
